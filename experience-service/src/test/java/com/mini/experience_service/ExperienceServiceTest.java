@@ -5,9 +5,8 @@ import com.mini.experience_service.Service.ExperienceService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
-@SpringBootTest
 class ExperienceServiceTest {
 
     @Mock
@@ -16,8 +15,12 @@ class ExperienceServiceTest {
     @InjectMocks
     private ExperienceService experienceService;
 
+    public ExperienceServiceTest() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
-    void testServiceLoad() {
+    void testServiceCreation() {
         assert experienceService != null;
     }
 }

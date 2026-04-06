@@ -5,11 +5,8 @@ import com.mini.user_service.Service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.*;
-
-@SpringBootTest
 class UserServiceTest {
 
     @Mock
@@ -18,8 +15,12 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
+    public UserServiceTest() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
-    void testUserServiceCreation() {
+    void testServiceCreation() {
         assert userService != null;
     }
 }

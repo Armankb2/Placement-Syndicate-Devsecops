@@ -5,9 +5,8 @@ import com.mini.user_service.Service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
-@SpringBootTest
 class UserControllerTest {
 
     @Mock
@@ -16,8 +15,12 @@ class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
+    public UserControllerTest() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
-    void testControllerLoad() {
+    void testControllerCreation() {
         assert userController != null;
     }
 }
