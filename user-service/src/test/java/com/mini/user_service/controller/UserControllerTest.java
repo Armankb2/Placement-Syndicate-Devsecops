@@ -1,5 +1,5 @@
 package com.mini.user_service.controller;
-
+import org.springframework.security.test.context.support.WithMockUser;
 import com.mini.user_service.Controller.UserController;
 import com.mini.user_service.Service.UserService;
 import com.mini.user_service.Dto.UserResponse;
@@ -27,16 +27,17 @@ class UserControllerTest {
     private UserService userService;
 
     @Test
-    void shouldReturnUsers() throws Exception {
+@WithMockUser
+void shouldReturnUsers() throws Exception {
 
-        List<UserResponse> users = Arrays.asList(
-                new UserResponse(),
-                new UserResponse()
-        );
+    List<UserResponse> users = Arrays.asList(
+            new UserResponse(),
+            new UserResponse()
+    );
 
-        Mockito.when(userService.getAllUsers()).thenReturn(users);
+    Mockito.when(userService.getAllUsers()).thenReturn(users);
 
-        mockMvc.perform(get("/users"))
-                .andExpect(status().isOk());
+    mockMvc.perform(get("/users"))
+            .andExpect(status().isOk());
     }
 }
