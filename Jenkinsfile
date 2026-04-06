@@ -1,58 +1,51 @@
 pipeline {
     agent any
 
-    environment {
-        MAVEN_HOME = tool 'Maven'
-        JAVA_HOME = tool 'JDK17'
-        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
+    tools {
+        maven 'Maven'
+        jdk 'JDK17'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+                git branch: 'add-tests',
+                    url: 'https://github.com/thejeswar2419/Placement-Syndicate-Devsecops.git'
             }
         }
 
-        stage('Build All Services') {
+        stage('Build') {
             steps {
-                sh '''
-                mvn -v
+                bat 'mvn -v'
 
-                cd api-gatway && mvn clean install
-                cd ../discovery-service && mvn clean install
-                cd ../user-service && mvn clean install
-                cd ../experience-service && mvn clean install
-                cd ../notification-service && mvn clean install
-                '''
+                dir('api-gatway') {
+                    bat 'mvn clean install'
+                }
+
+                dir('discovery-service') {
+                    bat 'mvn clean install'
+                }
+
+                dir('user-service') {
+                    bat 'mvn clean install'
+                }
+
+                dir('experience-service') {
+                    bat 'mvn clean install'
+                }
+
+                dir('notification-service') {
+                    bat 'mvn clean install'
+                }
             }
         }
 
-        stage('Run Tests') {
+        stage('Test') {
             steps {
-                sh '''
-                cd api-gatway && mvn test
-                cd ../discovery-service && mvn test
-                cd ../user-service && mvn test
-                cd ../experience-service && mvn test
-                cd ../notification-service && mvn test
-                '''
-            }
-        }
-
-        stage('Code Coverage') {
-            steps {
-                sh '''
-                mvn jacoco:report
-                '''
-            }
-        }
-
-        stage('Security Scan (Optional)') {
-            steps {
-                echo "Add OWASP / Trivy here if needed"
+                dir('user-service') {
+                    bat 'mvn test'
+                }
             }
         }
     }
@@ -60,14 +53,6 @@ pipeline {
     post {
         always {
             junit '**/target/surefire-reports/*.xml'
-        }
-
-        success {
-            echo 'Build Successful!'
-        }
-
-        failure {
-            echo 'Build Failed!'
         }
     }
 }
