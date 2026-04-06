@@ -2,7 +2,7 @@ package com.mini.user_service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.user_service.Controller.UserController;
-import com.mini.user_service.Entity.User;
+import com.mini.user_service.Model.User;
 import com.mini.user_service.Service.UserService;
 
 import org.junit.jupiter.api.Test;

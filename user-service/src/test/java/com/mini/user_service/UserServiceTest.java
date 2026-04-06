@@ -1,6 +1,6 @@
 package com.mini.user_service.service;
 
-import com.mini.user_service.Entity.User;
+import com.mini.user_service.Model.User;
 import com.mini.user_service.Repository.UserRepository;
 import com.mini.user_service.Service.UserService;
 

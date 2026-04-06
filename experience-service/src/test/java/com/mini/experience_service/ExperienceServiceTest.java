@@ -1,6 +1,6 @@
 package com.mini.experience_service.service;
 
-import com.mini.experience_service.Entity.Experience;
+import com.mini.experience_service.Model.Experience;
 import com.mini.experience_service.Repository.ExperienceRepository;
 import com.mini.experience_service.Service.ExperienceService;
 
