@@ -13,14 +13,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
-@AutoConfigureMockMvc(addFilters = false) // disables security
+@AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest {
 
     @Autowired
@@ -32,14 +31,9 @@ class UserControllerTest {
     @Test
     void shouldReturnUsers() throws Exception {
 
-        List<UserResponse> users = Arrays.asList(
-                new UserResponse(),
-                new UserResponse()
-        );
+        Mockito.when(userService.getAllUsers()).thenReturn(List.of(new UserResponse()));
 
-        Mockito.when(userService.getAllUsers()).thenReturn(users);
-
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get("/api/users/all"))   // ✅ EXACT MATCH
                 .andExpect(status().isOk());
     }
 }
