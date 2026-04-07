@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
                 bat 'mvn -v'
 
@@ -28,7 +28,8 @@ pipeline {
                 }
 
                 dir('user-service') {
-                    bat 'mvn clean install'
+                    // ✅ Run tests + generate JaCoCo report
+                    bat 'mvn clean test jacoco:report'
                 }
 
                 dir('experience-service') {
@@ -41,10 +42,13 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Coverage') {
             steps {
                 dir('user-service') {
-                    bat 'mvn test'
+                    publishCoverage adapters: [
+                        jacocoAdapter('target/site/jacoco/jacoco.xml')
+                    ],
+                    sourceFileResolver: sourceFiles('STORE_LAST_BUILD')
                 }
             }
         }
