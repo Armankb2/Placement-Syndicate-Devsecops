@@ -45,10 +45,9 @@ pipeline {
         stage('Coverage') {
             steps {
                 dir('user-service') {
-                    publishCoverage adapters: [
-                        jacocoAdapter('target/site/jacoco/jacoco.xml')
-                    ],
-                    sourceFileResolver: sourceFiles('STORE_LAST_BUILD')
+                    recordCoverage tools: [
+                        jacoco(pattern: 'target/site/jacoco/jacoco.xml')
+                    ]
                 }
             }
         }
