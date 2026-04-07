@@ -20,6 +20,32 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       
+      # Build all JAR files first
+      - name: Build User Service JAR
+        run: |
+          cd user-service
+          mvn clean package -DskipTests
+      
+      - name: Build Experience Service JAR
+        run: |
+          cd experience-service
+          mvn clean package -DskipTests
+      
+      - name: Build Notification Service JAR
+        run: |
+          cd notification-service
+          mvn clean package -DskipTests
+      
+      - name: Build API Gateway JAR
+        run: |
+          cd api-gatway
+          mvn clean package -DskipTests
+      
+      - name: Build Discovery Service JAR
+        run: |
+          cd discovery-service
+          mvn clean package -DskipTests
+      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       
@@ -74,5 +100,3 @@ jobs:
       - name: Verify pushed images
         run: |
           echo "✅ All images built and pushed successfully!"
-          docker pull ${{ secrets.DOCKER_USERNAME }}/placement-user-service:latest
-          docker pull ${{ secrets.DOCKER_USERNAME }}/placement-frontend:latest
