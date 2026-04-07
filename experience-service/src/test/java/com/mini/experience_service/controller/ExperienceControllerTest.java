@@ -1,7 +1,6 @@
 package com.mini.experience_service.controller;
 
 import com.mini.experience_service.Controller.ExperienceController;
-import com.mini.experience_service.Model.Experience;
 import com.mini.experience_service.Service.ExperienceService;
 
 import org.junit.jupiter.api.Test;
@@ -29,12 +28,12 @@ class ExperienceControllerTest {
     private ExperienceService service;
 
     @Test
-    void shouldReturnExperiences() throws Exception {
+    void shouldReturnCompanies() throws Exception {
 
-        Mockito.when(service.getAllExperiences())
-                .thenReturn(List.of(new Experience()));
+        Mockito.when(service.getAllCompanies())
+                .thenReturn(List.of("Google"));
 
-        mockMvc.perform(get("/api/experience/all"))
+        mockMvc.perform(get("/api/experience/companies"))
                 .andExpect(status().isOk());
     }
 }
