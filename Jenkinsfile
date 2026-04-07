@@ -28,8 +28,7 @@ pipeline {
                 }
 
                 dir('user-service') {
-                    // ✅ Run tests + generate JaCoCo report
-                    bat 'mvn clean test jacoco:report'
+                    bat 'mvn clean test'
                 }
 
                 dir('experience-service') {
@@ -38,16 +37,6 @@ pipeline {
 
                 dir('notification-service') {
                     bat 'mvn clean install'
-                }
-            }
-        }
-
-        stage('Coverage') {
-            steps {
-                dir('user-service') {
-                    recordCoverage tools: [
-                        jacoco(pattern: 'target/site/jacoco/jacoco.xml')
-                    ]
                 }
             }
         }
