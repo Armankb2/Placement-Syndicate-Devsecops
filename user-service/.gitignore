@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+# Keycloak / DB files
+keycloak-data/
+*.db
+*.lock
+*.trace
