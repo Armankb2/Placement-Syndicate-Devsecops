@@ -87,6 +87,7 @@ public class UserService {
         response.setLastname(user.getLastname());
         response.setKeyCloakId(user.getKeyCloakId());
         response.setRole(user.getRole() != null ? user.getRole().name() : null);
+        response.setCreatedDate(user.getCreatedDate() != null ? user.getCreatedDate().toString() : null);
 
         return response;
     }

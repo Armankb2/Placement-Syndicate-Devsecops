@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { getMyExperiences, deleteExperience } from "../services/api";
-import { useAuth } from "../context/AuthContext";
 import "./MyExperiencesPage.css";
 
 const MyExperiencesPage = () => {
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useAuth();
 
   useEffect(() => {
     fetchMyExperiences();

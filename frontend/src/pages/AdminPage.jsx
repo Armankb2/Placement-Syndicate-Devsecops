@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { registerUser, getUserById } from "../services/api";
+import "./AdminPage.css";
 
 export default function AdminPage() {
   // ─── Register User ───────────────────────────
@@ -40,67 +41,74 @@ export default function AdminPage() {
   };
 
   return (
-    <div>
-      <h2>Admin Panel</h2>
+    <div className="container animate-up">
+      <div className="page-header">
+        <h1 className="page-title">Admin <span>Panel</span></h1>
+        <p className="page-subtitle">Create users and inspect account records from one focused workspace.</p>
+      </div>
 
-      {/* Register User */}
-      <h3>Register a New User</h3>
-      {regError && <p style={{ color: "red" }}>{regError}</p>}
-      {regResult && (
-        <p style={{ color: "green" }}>
-          User created: {regResult.firstname} {regResult.lastname} (ID: {regResult.id})
-        </p>
-      )}
-      <form onSubmit={handleRegister}>
-        <div>
-          <label>First Name: </label>
-          <input name="firstname" value={regForm.firstname} onChange={handleRegChange} required />
-        </div>
-        <div>
-          <label>Last Name: </label>
-          <input name="lastname" value={regForm.lastname} onChange={handleRegChange} required />
-        </div>
-        <div>
-          <label>Email: </label>
-          <input name="email" type="email" value={regForm.email} onChange={handleRegChange} required />
-        </div>
-        <div>
-          <label>Password: </label>
-          <input name="password" type="password" value={regForm.password} onChange={handleRegChange} required />
-        </div>
-        <div>
-          <label>Year: </label>
-          <input name="year" type="number" value={regForm.year} onChange={handleRegChange} required />
-        </div>
-        <button type="submit">Register User</button>
-      </form>
+      <div className="admin-grid">
+        <section className="admin-panel glass">
+          <h2>Register User</h2>
+          {regError && <p className="error-message">{regError}</p>}
+          {regResult && (
+            <p className="success-message">
+              User created: {regResult.firstname} {regResult.lastname} (ID: {regResult.id})
+            </p>
+          )}
+          <form onSubmit={handleRegister} className="admin-form">
+            <div className="admin-form-grid">
+              <div className="input-group">
+                <label>First Name</label>
+                <input name="firstname" value={regForm.firstname} onChange={handleRegChange} required />
+              </div>
+              <div className="input-group">
+                <label>Last Name</label>
+                <input name="lastname" value={regForm.lastname} onChange={handleRegChange} required />
+              </div>
+            </div>
+            <div className="input-group">
+              <label>Email</label>
+              <input name="email" type="email" value={regForm.email} onChange={handleRegChange} required />
+            </div>
+            <div className="admin-form-grid">
+              <div className="input-group">
+                <label>Password</label>
+                <input name="password" type="password" value={regForm.password} onChange={handleRegChange} required />
+              </div>
+              <div className="input-group">
+                <label>Year</label>
+                <input name="year" type="number" value={regForm.year} onChange={handleRegChange} required />
+              </div>
+            </div>
+            <button type="submit" className="btn-primary">Register User</button>
+          </form>
+        </section>
 
-      <hr />
+        <section className="admin-panel glass">
+          <h2>Lookup User</h2>
+          {lookupError && <p className="error-message">{lookupError}</p>}
+          <form onSubmit={handleLookup} className="admin-form">
+            <div className="input-group">
+              <label>User ID</label>
+              <input value={lookupId} onChange={(e) => setLookupId(e.target.value)} required />
+            </div>
+            <button type="submit">Lookup</button>
+          </form>
 
-      {/* Lookup User */}
-      <h3>Lookup User by ID</h3>
-      {lookupError && <p style={{ color: "red" }}>{lookupError}</p>}
-      <form onSubmit={handleLookup}>
-        <div>
-          <label>User ID: </label>
-          <input value={lookupId} onChange={(e) => setLookupId(e.target.value)} required />
-        </div>
-        <button type="submit">Lookup</button>
-      </form>
-      {lookupResult && (
-        <table border="1" cellPadding="8" style={{ marginTop: 10 }}>
-          <tbody>
-            <tr><td><strong>ID</strong></td><td>{lookupResult.id}</td></tr>
-            <tr><td><strong>First Name</strong></td><td>{lookupResult.firstname}</td></tr>
-            <tr><td><strong>Last Name</strong></td><td>{lookupResult.lastname}</td></tr>
-            <tr><td><strong>Email</strong></td><td>{lookupResult.email}</td></tr>
-            <tr><td><strong>Role</strong></td><td>{lookupResult.role}</td></tr>
-            <tr><td><strong>Keycloak ID</strong></td><td>{lookupResult.keyCloakId}</td></tr>
-            <tr><td><strong>Created</strong></td><td>{lookupResult.createdDate}</td></tr>
-          </tbody>
-        </table>
-      )}
+          {lookupResult && (
+            <div className="lookup-card">
+              <div><span>ID</span><strong>{lookupResult.id}</strong></div>
+              <div><span>First Name</span><strong>{lookupResult.firstname}</strong></div>
+              <div><span>Last Name</span><strong>{lookupResult.lastname}</strong></div>
+              <div><span>Email</span><strong>{lookupResult.email}</strong></div>
+              <div><span>Role</span><strong>{lookupResult.role}</strong></div>
+              <div><span>Keycloak ID</span><strong>{lookupResult.keyCloakId}</strong></div>
+              <div><span>Created</span><strong>{lookupResult.createdDate || "Not available"}</strong></div>
+            </div>
+          )}
+        </section>
+      </div>
     </div>
   );
 }
-

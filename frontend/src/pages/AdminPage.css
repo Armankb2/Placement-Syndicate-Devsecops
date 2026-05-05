@@ -1,0 +1,73 @@
+.admin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.admin-panel {
+  padding: 26px;
+}
+
+.admin-panel h2 {
+  color: var(--text-primary);
+  font-size: 1.35rem;
+  margin-bottom: 22px;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.success-message {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.26);
+  border-radius: 8px;
+  color: #86efac;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+}
+
+.lookup-card {
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  margin-top: 22px;
+  overflow: hidden;
+}
+
+.lookup-card div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  padding: 13px 14px;
+}
+
+.lookup-card div + div {
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.lookup-card span {
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+}
+
+.lookup-card strong {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 860px) {
+  .admin-grid,
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
