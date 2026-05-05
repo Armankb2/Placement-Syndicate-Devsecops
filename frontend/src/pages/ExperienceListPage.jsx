@@ -15,7 +15,7 @@ export default function ExperienceListPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const { user, hasRole } = useAuth();
+  const { hasRole } = useAuth();
 
   useEffect(() => {
     getAllCompanies()
@@ -51,6 +51,8 @@ export default function ExperienceListPage() {
     c.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const formatDifficulty = (level) => level || "MEDIUM";
+
   return (
     <div className="container animate-up">
       <div className="page-header">
@@ -78,6 +80,9 @@ export default function ExperienceListPage() {
               </button>
             ))}
           </div>
+          {filteredCompanies.length === 0 && (
+            <p className="sidebar-empty">No companies found.</p>
+          )}
         </aside>
 
         <main className="experience-main">
@@ -96,14 +101,17 @@ export default function ExperienceListPage() {
                 {experiences.map((exp) => (
                   <div key={exp.id} className="experience-card glass glass-hover">
                     <div className="card-header">
-                      <h3>{exp.role}</h3>
-                      <span className={`difficulty-badge ${exp.difficultyLevel.toLowerCase()}`}>
-                        {exp.difficultyLevel}
+                      <div>
+                        <h3>{exp.role}</h3>
+                        <p className="company-context">{exp.companyName}</p>
+                      </div>
+                      <span className={`difficulty-badge ${formatDifficulty(exp.difficultyLevel).toLowerCase()}`}>
+                        {formatDifficulty(exp.difficultyLevel)}
                       </span>
                     </div>
                     
                     <div className="card-body">
-                      <p className="meta-info">Year: {exp.year} | By: {exp.createdBy}</p>
+                      <p className="meta-info">Year {exp.year || "N/A"} / Shared by {exp.createdBy || "Unknown"}</p>
                       
                       <div className="content-section">
                         <h4>Questions</h4>
@@ -117,7 +125,7 @@ export default function ExperienceListPage() {
 
                       {exp.rounds && exp.rounds.length > 0 && (
                         <div className="rounds-summary">
-                          <h4>{exp.rounds.length} Rounds Covered</h4>
+                          <h4>{exp.rounds.length} rounds covered</h4>
                         </div>
                       )}
                     </div>
@@ -130,6 +138,12 @@ export default function ExperienceListPage() {
                   </div>
                 ))}
               </div>
+              {!loading && experiences.length === 0 && (
+                <div className="empty-state glass">
+                  <span className="empty-label">No entries</span>
+                  <p>No experiences have been shared for {selectedCompany} yet.</p>
+                </div>
+              )}
             </div>
           )}
         </main>

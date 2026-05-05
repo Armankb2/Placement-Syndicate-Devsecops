@@ -19,7 +19,6 @@ export default function Navbar() {
         <Link to="/experiences" className={`nav-item ${isActive("/experiences") ? "active" : ""}`}>Experiences</Link>
         <Link to="/my-experiences" className={`nav-item ${isActive("/my-experiences") ? "active" : ""}`}>My Experiences</Link>
         <Link to="/experiences/new" className={`nav-item ${isActive("/experiences/new") ? "active" : ""}`}>Add Experience</Link>
-        <Link to="/upload-resume" className={`nav-item ${isActive("/upload-resume") ? "active" : ""}`}>AI Advisor</Link>
         {hasRole("Admin") && (
           <Link to="/admin" className={`nav-item ${isActive("/admin") ? "active" : ""}`}>Admin</Link>
         )}

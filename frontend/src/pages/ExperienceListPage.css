@@ -1,14 +1,15 @@
 /* ExperienceListPage.css - Placement Syndicate */
 
 .page-header {
-  margin-bottom: 48px;
+  margin-bottom: 34px;
   text-align: left;
 }
 
 .page-title {
-  font-size: 2.8rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   color: var(--text-primary);
+  line-height: 1.05;
 }
 
 .page-title span {
@@ -17,28 +18,28 @@
 
 .experience-layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 32px;
+  grid-template-columns: minmax(240px, 300px) 1fr;
+  gap: 22px;
   align-items: flex-start;
 }
 
 /* Sidebar */
 .company-sidebar {
-  padding: 24px;
+  padding: 20px;
   position: sticky;
-  top: 100px;
+  top: 104px;
 }
 
 .company-sidebar h3 {
-  font-size: 1.1rem;
+  font-size: 0.82rem;
   margin-bottom: 16px;
-  color: var(--primary);
+  color: var(--secondary);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0;
 }
 
 .search-box {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(2, 6, 23, 0.42);
   padding: 10px 16px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -55,7 +56,7 @@
 .company-pill {
   width: 100%;
   text-align: left;
-  padding: 10px 16px;
+  padding: 10px 12px;
   font-size: 0.95rem;
   color: var(--text-secondary);
   background: transparent;
@@ -64,38 +65,45 @@
 }
 
 .company-pill:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(148, 163, 184, 0.08);
   color: var(--text-primary);
 }
 
 .company-pill.active {
-  background: rgba(79, 172, 254, 0.15);
+  background: rgba(56, 189, 248, 0.14);
   color: var(--primary);
-  border-color: rgba(79, 172, 254, 0.3);
+  border-color: rgba(56, 189, 248, 0.32);
+}
+
+.sidebar-empty {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 12px;
 }
 
 /* Main Area */
 .experience-results h2 {
   font-size: 1.8rem;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 .experience-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 16px;
 }
 
 .experience-card {
-  padding: 30px;
+  padding: 24px;
   animation: slideUp 0.6s ease-out;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
 }
 
 .card-header h3 {
@@ -103,12 +111,20 @@
   color: var(--text-primary);
 }
 
+.company-context {
+  color: var(--primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
 .difficulty-badge {
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
+  padding: 5px 10px;
+  border-radius: 999px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .difficulty-badge.easy { background: rgba(72, 187, 120, 0.15); color: #48bb78; }
@@ -118,7 +134,7 @@
 .meta-info {
   font-size: 0.85rem;
   color: var(--text-secondary);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .content-section {
@@ -128,10 +144,10 @@
 .content-section h4 {
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--secondary);
   margin-bottom: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
 }
 
 .content-section p {
@@ -141,7 +157,7 @@
 }
 
 .card-footer {
-  margin-top: 24px;
+  margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid var(--glass-border);
 }
@@ -160,12 +176,33 @@
 }
 
 .empty-state {
-  padding: 80px;
+  padding: 54px;
   text-align: center;
   color: var(--text-secondary);
 }
 
 .empty-state .icon { font-size: 3rem; display: block; margin-bottom: 16px; }
+
+.empty-label {
+  display: inline-block;
+  color: var(--secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.rounds-summary {
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 8px;
+  color: var(--primary);
+  display: inline-flex;
+  padding: 8px 12px;
+}
+
+.rounds-summary h4 {
+  font-size: 0.86rem;
+}
 
 @media (max-width: 900px) {
   .experience-layout {

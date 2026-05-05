@@ -9,7 +9,7 @@
 
 .company-info {
   font-size: 1rem;
-  color: var(--primary);
+  color: var(--secondary);
   font-weight: 600;
   margin: 4px 0 0 0;
 }
@@ -35,7 +35,7 @@
 }
 
 .empty-state {
-  padding: 100px;
+  padding: 64px;
   text-align: center;
   color: var(--text-secondary);
 }
@@ -54,9 +54,9 @@
 .btn-primary {
   display: inline-block;
   padding: 14px 32px;
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--primary);
-  color: #000;
+  color: #06111f;
   font-weight: 700;
   box-shadow: 0 10px 20px -10px var(--primary);
 }
@@ -81,7 +81,7 @@
 .content-section h4 {
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--secondary);
   text-transform: uppercase;
   margin-bottom: 8px;
 }
@@ -98,12 +98,17 @@
   color: #f43f5e;
   font-size: 0.85rem;
   padding: 8px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: var(--transition);
 }
 
 .delete-btn:hover {
   background: rgba(244, 63, 94, 0.2);
   border-color: rgba(244, 63, 94, 0.3);
-  transform: translateY(-2px);
+}
+
+@media (max-width: 620px) {
+  .empty-state {
+    padding: 40px 24px;
+  }
 }

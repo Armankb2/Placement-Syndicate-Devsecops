@@ -3,23 +3,24 @@
 .form-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 60px;
+  padding: 42px;
 }
 
 .form-title {
-  font-size: 2.8rem;
+  font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 800;
   margin-bottom: 8px;
+  line-height: 1.05;
 }
 
 .form-title span {
-  color: var(--primary);
+  color: var(--secondary);
 }
 
 .form-subtitle {
   color: var(--text-secondary);
   font-size: 1.1rem;
-  margin-bottom: 48px;
+  margin-bottom: 34px;
 }
 
 .entry-form {
@@ -41,10 +42,10 @@
 }
 
 .input-group label {
-  color: var(--primary);
+  color: var(--secondary);
   font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0;
 }
 
 .rounds-container {
@@ -64,15 +65,15 @@
 }
 
 .btn-small {
-  background: rgba(79, 172, 254, 0.1);
-  border: 1px solid rgba(79, 172, 254, 0.3);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
   color: var(--primary);
   padding: 6px 16px;
   font-size: 0.85rem;
 }
 
 .round-item {
-  padding: 24px;
+  padding: 18px;
   margin-bottom: 16px;
   animation: slideUp 0.4s ease-out;
 }
@@ -104,6 +105,7 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+  flex: 0 0 32px;
 }
 
 .remove-btn:hover {
@@ -121,5 +123,15 @@
 @media (max-width: 600px) {
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-container {
+    padding: 26px;
+  }
+
+  .section-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
   }
 }
