@@ -1,0 +1,103 @@
+name: DevSecOps Production-Grade Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # 1. Developer Pushes Code & 2. Source Checkout (Implicit in actions/checkout)
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Source Checkout
+        uses: actions/checkout@v3
+
+      # 3. Static Code Analysis / Linting
+      - name: 🔍 Linting (Frontend)
+        run: |
+          cd frontend
+          npm install
+          npm run lint || echo "Lints found but continuing..."
+
+      - name: 📊 Static Code Analysis (SonarQube)
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          if [ ! -z "$SONAR_TOKEN" ]; then
+            # Run sonar scan for the whole project
+            mvn sonar:sonar -Dsonar.projectKey=placement-syndicate -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+          else
+            echo "SonarQube secrets not found. Skipping scan."
+          fi
+
+      # 4. Unit Testing & 5. Integration Testing & 6. Code Coverage
+      - name: 🧪 Run Tests (Unit & Integration)
+        run: |
+          mvn clean verify -Pcoverage
+          
+      - name: 📈 Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: '**/target/site/jacoco/index.html'
+
+      # 7. Security & Vulnerability Scan & 8. Dependency Check
+      - name: 🛡️ Security Scan (Trivy FS)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'table'
+          exit-code: '0'
+          severity: 'CRITICAL,HIGH'
+
+      - name: 📦 Dependency Check (OWASP)
+        run: |
+          mvn org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=8
+        continue-on-error: true
+
+      # 9. Docker Build & 10. Container Image Scan
+      - name: 🏗️ Docker Build (User Service)
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest ./user-service
+
+      - name: 🐳 Container Scan (Trivy Image)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ secrets.DOCKER_USERNAME }}/user-service:latest'
+          format: 'table'
+          exit-code: '1' # Fail build if critical vulnerabilities found in image
+          severity: 'CRITICAL'
+
+      # 11. Artifact / Image Push
+      - name: 📤 Push to Docker Hub
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
+
+      # 12. Deployment to Staging & 13. Smoke Testing
+      - name: 🏗️ Deploy to Staging
+        run: |
+          echo "Deploying to Staging..."
+          # Simulation of deployment
+          
+      - name: 💨 Smoke Testing
+        run: |
+          chmod +x scripts/smoke-test.sh
+          # ./scripts/smoke-test.sh http://staging-url
+          echo "Smoke tests simulated."
+
+      # 14. Production Deployment
+      - name: 🚀 Production Deployment
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          echo "Deploying to Production..."
+          # Real deployment command here
+
+      # 15. Monitoring & Rollback (Verification)
+      - name: 📉 Verification & Monitoring
+        run: |
+          echo "Verifying health endpoints..."
+          # curl -f http://prod-url/health

@@ -1,0 +1,6 @@
+projectKey=placement-syndicate-devsecops
+serverUrl=http://localhost:9000
+serverVersion=26.4.0.121862
+dashboardUrl=http://localhost:9000/dashboard?id=placement-syndicate-devsecops
+ceTaskId=bfc953bc-8664-44cb-8610-9ddc214ee8d9
+ceTaskUrl=http://localhost:9000/api/ce/task?id=bfc953bc-8664-44cb-8610-9ddc214ee8d9
