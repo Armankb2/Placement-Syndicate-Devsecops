@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 Source Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 3. Static Code Analysis / Linting
       - name: 🔍 Linting (Frontend)
@@ -39,7 +39,7 @@ jobs:
           mvn clean verify -Pcoverage
           
       - name: 📈 Upload Coverage Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: '**/target/site/jacoco/index.html'
